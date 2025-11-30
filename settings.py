@@ -9,6 +9,7 @@ class Settings:
         self.bg_color = (30, 30, 40)
 
         # Wizard settings.
+        self.wizard_speed = 3.0
         self.wizard_width = 30
         self.wizard_height = 30
         self.wizard_color = (50, 150, 255)
