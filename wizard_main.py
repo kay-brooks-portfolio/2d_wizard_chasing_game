@@ -23,14 +23,39 @@ class WizardGame:
         """Start the main loop for the game."""
         while True:
             self._check_events()
+            self.wizard.update()
             self._update_screen()
             self.clock.tick(60)
 
     def _check_events(self):
         """Respond to keypresses and mouse events."""
         for event in pygame.event. get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
+            if event.type == pygame.QUIT:
+                sys.exit()
+        
+            elif event.type == pygame.KEYDOWN:
+                self._check_keydown(event)
+            elif event.type == pygame.KEYUP:
+                self._check_keyup(event)
+    
+    def _check_keyup(self, event):
+        """Respond to keypresses."""
+        if event.key == pygame.K_RIGHT:
+            self.wizard.moving_right = False
+        elif event.key == pygame.K_LEFT:
+            self.wizard.moving_left = False
+        elif event.key == pygame.K_q:
+            sys.exit()
+    
+    def _check_keydown(self, event):
+        """Respond when keys are pressed."""
+        if event.key == pygame.K_RIGHT:
+            self.wizard.moving_right = True
+        elif event.key == pygame.K_LEFT:
+            self.wizard.moving_left = True
+        elif event.key == pygame.K_q:
+            pygame.quit()
+            sys.exit()
 
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""

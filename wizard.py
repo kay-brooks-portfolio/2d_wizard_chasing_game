@@ -20,6 +20,17 @@ class Wizard:
         # Start each new wizard at the bottom center of the screen.
         self.rect.midbottom = self.screen_rect.midbottom
 
+        # Movement flags
+        self.moving_right = False
+        self.moving_left = False
+
     def blitme(self):
         """Draw the wizard at its current location and as a simple rectangle."""
         pygame.draw.rect(self.screen, self.color, self.rect)
+
+    def update(self):
+        """Update wizard position based on movement flags."""
+        if self.moving_right:
+            self.rect.x += 1
+        if self.moving_left:
+            self.rect.x -= 1
