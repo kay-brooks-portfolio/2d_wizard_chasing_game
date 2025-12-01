@@ -3,6 +3,7 @@ import pygame
 
 from settings import Settings
 from wizard import Wizard
+from spell import Spell
 
 class WizardGame:
     """Overall class to manage game assets and resources."""
@@ -16,14 +17,16 @@ class WizardGame:
         self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Wizard Survival Game")
 
-        # Create the wizard.
+        # Create the wizard and spell objects.
         self.wizard = Wizard(self)
+        self.spells = pygame.sprite.Group()
 
     def run_game(self):
         """Start the main loop for the game."""
         while True:
             self._check_events()
             self.wizard.update()
+            self.spells.update()
             self._update_screen()
             self.clock.tick(60)
 
@@ -61,16 +64,28 @@ class WizardGame:
             self.wizard.moving_up = True
         elif event.key == pygame.K_DOWN:
             self.wizard.moving_down = True
+        elif event.key == pygame.K_SPACE:
+                self._fire_spell()
         elif event.key == pygame.K_q:
             pygame.quit()
             sys.exit()
+    
+    def _fire_spell(self):
+        """Create a new spell and add it to the spells group."""
+        new_spell = Spell(self)
+        self.spells.add(new_spell)
 
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
         # Redraw the screen during each pass through the hoop.
         self.screen.fill(self.settings.bg_color)
+
         # Draw the wizard.
         self.wizard.blitme()
+
+        for spell in self.spells.sprites():
+            spell.draw()
+
         # Make the most recently drawn screen visible.
         pygame.display.flip()
 
