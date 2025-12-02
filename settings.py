@@ -25,3 +25,4 @@ class Settings:
         self.enemy_speed = 1.5
         self.enemy_size = 28
         self.enemy_color = (200, 60, 60)
+        self.max_enemies = 10

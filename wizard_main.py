@@ -31,6 +31,7 @@ class WizardGame:
             self.wizard.update()
             self.spells.update()
             self._cleanup_offscreen_spells()
+            self._create_enemies()
             self._update_screen()
             self.clock.tick(60)
 
@@ -87,13 +88,20 @@ class WizardGame:
                 spell.rect.right < 0 or
                 spell.rect.left > self.settings.screen_width):
                 self.spells.remove(spell)
+        
+        # Check if a spell hit a monster and remove spell and monster.
+        collisions = pygame.sprite.groupcollide(
+            self.spells, self.enemies, True, True
+        )
     
     def _create_enemies(self):
-        """Create a horde of swarming monsters."""
-        for _ in range(10):
+        """Create a horde of swarming monsters and make sure it stays at max."""
+        self.settings.max_enemies
+
+        while len(self.enemies) < self.max_enemies:
             enemy = Monster(self)
             self.enemies.add(enemy)
-    
+        
     def _fire_spell(self):
         """Create a new spell and add it to the spells group if under a limit"""
         if len(self.spells) < self.settings.spells_allowed:
