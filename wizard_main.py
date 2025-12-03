@@ -29,15 +29,15 @@ class WizardGame:
         while True:
             self._check_events()
             self.wizard.update()
-            self.spells.update()
             self._cleanup_offscreen_spells()
+            self._update_enemies()
             self._create_enemies()
             self._update_screen()
             self.clock.tick(60)
 
     def _check_events(self):
         """Respond to keypresses and mouse events."""
-        for event in pygame.event. get():
+        for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
         
@@ -96,9 +96,7 @@ class WizardGame:
     
     def _create_enemies(self):
         """Create a horde of swarming monsters and make sure it stays at max."""
-        self.settings.max_enemies
-
-        while len(self.enemies) < self.max_enemies:
+        while len(self.enemies) < self.settings.max_enemies:
             enemy = Monster(self)
             self.enemies.add(enemy)
         
@@ -107,6 +105,11 @@ class WizardGame:
         if len(self.spells) < self.settings.spells_allowed:
             new_spell = Spell(self)
             self.spells.add(new_spell)
+
+    def _update_enemies(self):
+        """Update the enemies to make them move towards the wizard."""
+        for enemy in self.enemies:
+            enemy.update(self.wizard)
 
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""

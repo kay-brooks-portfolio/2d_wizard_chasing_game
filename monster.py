@@ -1,6 +1,7 @@
 import pygame 
 from pygame.sprite import Sprite
 import random
+import math
 
 class Monster(Sprite):
     """A class to represent a single monster."""
@@ -44,3 +45,26 @@ class Monster(Sprite):
     def draw(self):
         """Draw the monster as a red square."""
         pygame.draw.rect(self.screen, self.color, self.rect)
+    
+    def update(self, wizard):
+        """
+        Move the monster toward the wizard by using the Pythagorean theorem.
+        """
+        dx = wizard.rect.centerx - self.rect.centerx
+        dy = wizard.rect.centery - self.rect.centery
+
+        distance = math.hypot(dx, dy)
+        if distance == 0:
+            return
+
+        # Get the direction to the wizard
+        dx /= distance
+        dy /= distance
+
+        # Move the monster toward the wizard in a smooth way from game settings.
+        self.x += dx * self.speed
+        self.y += dy * self.speed
+
+        # # Move the monster on the screen from it's float position.
+        self.rect.x = int(self.x)
+        self.rect.y = int(self.y)
