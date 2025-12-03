@@ -6,7 +6,7 @@ from settings import Settings
 from wizard import Wizard
 from spell import Spell
 from monster import Monster
-from game_stats import GameStats
+from game_stats import GameStats, Scoreboard
 
 class WizardGame:
     """Overall class to manage game assets and resources."""
@@ -25,6 +25,7 @@ class WizardGame:
 
         # Create an instance to store game statistics.
         self.stats = GameStats(self)
+        self.sb = Scoreboard(self)
 
         # Create the wizard, spells, and enemies objects.
         self.wizard = Wizard(self)
@@ -137,6 +138,9 @@ class WizardGame:
         # Draw the enemies.
         for enemy in self.enemies.sprites():
             enemy.draw()
+
+        # Draw the score information.
+        self.sb.show_score()
 
         # Make the most recently drawn screen visible.
         pygame.display.flip()
