@@ -139,8 +139,9 @@ class WizardGame:
         for enemy in self.enemies.sprites():
             enemy.draw()
 
-        # Draw the score information.
+        # Draw the score and wizard lives information.
         self.sb.show_score()
+        self.sb.show_lives()
 
         # Make the most recently drawn screen visible.
         pygame.display.flip()
@@ -150,6 +151,10 @@ class WizardGame:
         if self.stats.wizard_lives_left > 0:
             # Adjust the amount of lives the wizard has. 
             self.stats.wizard_lives_left -= 1
+
+            # Update the lives display on left corner.
+            self.sb.prep_lives()
+
             self.spells.empty()
             self.enemies.empty()
             self._create_enemies()

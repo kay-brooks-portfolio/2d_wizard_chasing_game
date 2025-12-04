@@ -27,6 +27,7 @@ class Scoreboard:
         self.font = pygame.font.SysFont(None, 48)
         # Prepare the initial score image.
         self.prep_score()
+        self.prep_lives()
 
     def prep_score(self):
         """Turn the score into a rendered image."""
@@ -42,3 +43,18 @@ class Scoreboard:
     def show_score(self):
         """"Draw score to the screen."""
         self.screen.blit(self.score_image, self.score_rect)
+
+    def prep_lives(self):
+        """Turn the wizard into a rendered image."""
+        lives_str = f"Lives: {self.stats.wizard_lives_left}"
+        self.lives_image = self.font.render(lives_str, True, 
+                        self.text_color, self.settings.bg_color)
+        
+        # Display the lives at the top left of the screen.
+        self.lives_rect = self.lives_image.get_rect()
+        self.lives_rect.left = 20
+        self.lives_rect.top = 20
+
+    def show_lives(self):
+        """"Draw wizard lives to the screen."""
+        self.screen.blit(self.lives_image, self.lives_rect)
