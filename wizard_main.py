@@ -112,6 +112,10 @@ class WizardGame:
         if collisions:
             self.stats.score += self.settings.enemy_points
             self.sb.prep_score()
+
+        if self.stats.score > self.stats.high_score:
+            self.stats.high_score = self.stats.score
+            self.sb.prep_high_score()
     
     def _create_enemies(self):
         """Create a horde of swarming monsters and make sure it stays at max."""
@@ -174,9 +178,8 @@ class WizardGame:
         for enemy in self.enemies.sprites():
             enemy.draw()
 
-        # Draw the score and wizard lives information.
+        # Draw the information on the screen.
         self.sb.show_score()
-        self.sb.show_lives()
 
         # Make the most recently drawn screen visible.
         pygame.display.flip()
