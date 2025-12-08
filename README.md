@@ -6,7 +6,7 @@ This is a 2D game made with Python and pygame where the idea is simple: you’re
 
 Surprisingly, it’s a lot harder than you’d think. Check out the video to see a bit of gameplay!
 
-<video controls src="gameplay_screenshots/wizard_gameplay.mp4" title="Title"></video>
+![alt text](gameplay_screenshots/wizard_gameplay.gif)
 
 This project began as a learning exercise inspired by *Python Crash Course* by Eric Matthes, and there was a lot I learned from it. I found it really interesting how complicated making a game can become and how much you have to keep track of. Overall, it was a fun challenge and gave me a real taste of how all these little systems come together into a playable experience from something I programmed.
 
